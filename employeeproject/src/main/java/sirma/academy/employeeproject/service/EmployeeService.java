@@ -28,8 +28,8 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    public Employee update(EmployeeDto dto) {
-        Employee existingEmployee = employeeRepository.findById(dto.getId()).orElse(null);
+    public Employee updateById(Integer id, EmployeeDto dto) {
+        Employee existingEmployee = employeeRepository.findById(id).orElse(null);
         if (existingEmployee != null) {
             existingEmployee.setFirstName(dto.getFirstName());
             existingEmployee.setLastName(dto.getLastName());

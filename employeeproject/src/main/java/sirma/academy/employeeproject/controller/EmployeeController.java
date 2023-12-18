@@ -27,12 +27,22 @@ public class EmployeeController {
     @GetMapping
     public ResponseEntity<?> getAll() {
         List<Employee> employees = employeeService.getAll();
+
+        if (employees.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Integer id) {
         Employee employee = employeeService.getById(id);
+
+        if (employee == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
@@ -47,9 +57,14 @@ public class EmployeeController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody EmployeeDto dto) {
+    public ResponseEntity<?> updateById(@PathVariable Integer id, @RequestBody EmployeeDto dto) {
         try {
-            //Employee employee = employeeService.update(dto);
+            Employee employee = employeeService.updateById(id, dto);
+
+            if (employee == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            
             return ResponseEntity.ok("Successfully update employee");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Could not update employee");   
@@ -57,8 +72,9 @@ public class EmployeeController {
     }
 
     @DeleteMapping
-    public void deleteById(@PathVariable Integer id) {
+    public ResponseEntity<?> deleteById(@PathVariable Integer id) {
         employeeService.deleteById(id);
+        return ResponseEntity.ok("Successfully delete employee");
     }
 
 }
