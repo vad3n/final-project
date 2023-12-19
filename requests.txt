@@ -1,0 +1,13 @@
+curl GET http://0.0.0.0:8080/api/employees
+
+curl GET http://0.0.0.0:8080/api/employees/1
+
+curl --header "Content-Type: application/json" --request POST --data '{"firstName": "Test", "lastName": "Create"}' http://0.0.0.0:8080/api/employees
+
+curl --header "Content-Type: application/json" --request PUT --data '{"firstName": "Test", "lastName": "Put"}' http://0.0.0.0:8080/api/employees/2
+
+curl --header "Content-Type: application/json" --request PUT --data '{"firstName": "Test", "lastName": "Put"}' http://0.0.0.0:8080/api/employees/100
+
+curl --request DELETE http://0.0.0.0:8080/api/employees/2
+
+curl --request DELETE http://0.0.0.0:8080/api/employees/100
