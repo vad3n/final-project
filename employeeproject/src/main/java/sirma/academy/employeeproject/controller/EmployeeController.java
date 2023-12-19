@@ -40,7 +40,7 @@ public class EmployeeController {
         Employee employee = employeeService.getById(id);
 
         if (employee == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Employee not found" , HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(employee, HttpStatus.OK);
@@ -49,7 +49,7 @@ public class EmployeeController {
     @PostMapping
     public ResponseEntity<?> create(@RequestBody EmployeeDto dto) {
         try {
-            //Employee employee = employeeService.create(dto);
+            Employee employee = employeeService.create(dto);
             return ResponseEntity.ok("Successfully create employee");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Could not create employee");   
@@ -62,7 +62,7 @@ public class EmployeeController {
             Employee employee = employeeService.updateById(id, dto);
 
             if (employee == null) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("Employee not found", HttpStatus.NOT_FOUND);
             }
             
             return ResponseEntity.ok("Successfully update employee");
